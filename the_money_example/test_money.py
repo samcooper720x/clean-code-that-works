@@ -1,10 +1,10 @@
 import pytest
 
-from money import Dollar
+from money import Dollar, Franc
 
 
 class TestMultiCurrencyMoney:
-    def test_multiplication(self):
+    def test_dollar_multiplication(self):
         # In the book, Kent Beck compares the two class instances
         # for equality. In Python we can only do those by defining
         # an __eq__ method, so to keep as close to the example as
@@ -12,6 +12,11 @@ class TestMultiCurrencyMoney:
         five = Dollar(5)
         assert Dollar(10).amount == five.times(2).amount
         assert Dollar(15).amount == five.times(3).amount
+
+    def test_franc_multiplication(self):
+        five = Franc(5)
+        assert Franc(10).amount == five.times(2).amount
+        assert Franc(15).amount == five.times(3).amount
 
     def test_equality(self):
         assert Dollar(5).equals(Dollar(5))
