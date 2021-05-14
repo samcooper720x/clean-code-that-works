@@ -21,5 +21,8 @@ class TestMultiCurrencyMoney:
     def test_equality(self):
         assert Dollar(5).equals(Dollar(5))
         assert not Dollar(5).equals(Dollar(6))
+        assert Franc(5).equals(Franc(5))
+        assert not Franc(5).equals(Franc(6))
+        assert not Franc(5).equals(Dollar(5))
 
 
