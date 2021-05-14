@@ -11,4 +11,8 @@ class TestMultiCurrencyMoney:
         product = five.times(3)
         assert 15 == product.amount
 
+    def test_equality(self):
+        assert Dollar(5).equals(Dollar(5))
+        assert not Dollar(5).equals(Dollar(6))
+
 
