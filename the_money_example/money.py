@@ -27,13 +27,25 @@ class Money:
     def plus(self, addend):
         return Total(self, addend)
 
-    def reduce(self, to):
-        return self
+    def reduce(self, bank, to):
+        rate = bank.rate(self._currency, to)
+        return Money(self.amount / rate, to)
 
 
 class Bank:
+    def __init__(self):
+        self._rates = {}
+
+    def add_rate(self, source, to, rate):
+        self._rates[(source, to)] = rate
+        
     def reduce(self, source, to):
-        return source.reduce(to)
+        return source.reduce(self, to)
+
+    def rate(self, source, to):
+        if source == to:
+            return 1
+        return self._rates[(source, to)]
 
 
 class Total:
@@ -41,7 +53,7 @@ class Total:
         self.augend = augend
         self.addend = addend
 
-    def reduce(self, to):
+    def reduce(self, bank, to):
         amount = self.augend.amount + self.addend.amount
         return Money(amount, to)
 
