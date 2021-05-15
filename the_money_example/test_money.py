@@ -46,6 +46,7 @@ class TestMultiCurrencyMoney:
     def test_identity_rate(self):
         assert 1 == Bank().rate('USD', 'USD')
 
+    # TODO use fixtures to reduce duplication in following tests.
     def test_mixed_addition(self):
         five_bucks = Money.dollar(5)
         ten_francs = Money.franc(10)
@@ -53,3 +54,21 @@ class TestMultiCurrencyMoney:
         bank.add_rate('CHF', 'USD', 2)
         result = bank.reduce(five_bucks.plus(ten_francs), 'USD')
         assert Money.dollar(10) == result
+
+    def test_total_plus_money(self):
+        five_bucks = Money.dollar(5)
+        ten_francs = Money.franc(10)
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        total = Total(five_bucks, ten_francs).plus(five_bucks)
+        result = bank.reduce(total, 'USD')
+        assert Money.dollar(15) == result
+
+    def test_total_times(self):
+        five_bucks = Money.dollar(5)
+        ten_francs = Money.franc(10)
+        bank = Bank()
+        bank.add_rate('CHF', 'USD', 2)
+        total = Total(five_bucks, ten_francs).times(2)
+        result = bank.reduce(total, 'USD')
+        assert Money.dollar(20) == result
