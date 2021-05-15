@@ -5,11 +5,11 @@ class Money:
 
     @staticmethod
     def dollar(amount):
-        return Dollar(amount, 'USD')
+        return Money(amount, 'USD')
 
     @staticmethod
     def franc(amount):
-        return Franc(amount, 'CHF')
+        return Money(amount, 'CHF')
 
     def equals(self, other):
         # Update comparison to ensure equality between classes and amounts.
@@ -18,12 +18,4 @@ class Money:
 
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
-
-
-class Dollar(Money):
-    currency = 'USD'
-
-
-class Franc(Money):
-    currency = 'CHF'
 
