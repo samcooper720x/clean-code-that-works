@@ -3,6 +3,12 @@ class Money:
         self.currency = currency
         self.amount = amount
 
+    def __eq__(self, other):
+        return (
+            self.currency == other.currency and
+            self.amount == other.amount
+        )
+
     @staticmethod
     def dollar(amount):
         return Money(amount, 'USD')
@@ -11,11 +17,7 @@ class Money:
     def franc(amount):
         return Money(amount, 'CHF')
 
-    def equals(self, other):
-        # Update comparison to ensure equality between classes and amounts.
-        return self.amount == other.amount and \
-               self.currency == other.currency
-
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
+    
 
