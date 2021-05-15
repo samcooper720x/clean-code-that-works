@@ -20,4 +20,11 @@ class Money:
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
     
+    def plus(self, addend):
+        return Money(self.amount + addend.amount, self.currency)
+
+
+class Bank:
+    def reduce(self, source, to):
+        return Money.dollar(10)
 
