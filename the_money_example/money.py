@@ -3,6 +3,7 @@ class Money:
         self.amount = amount
 
     def equals(self, other):
+        # Update comparison to ensure equality between classes and amounts.
         return self.amount == other.amount and \
                type(self).__name__ == type(other).__name__
 
