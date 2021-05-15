@@ -14,15 +14,16 @@ class Money:
     def equals(self, other):
         # Update comparison to ensure equality between classes and amounts.
         return self.amount == other.amount and \
-               type(self).__name__ == type(other).__name__
+               self.currency == other.currency
+
+    def times(self, multiplier):
+        return Money(self.amount * multiplier, self.currency)
 
 
 class Dollar(Money):
-    def times(self, multiplier):
-        return Money.dollar(self.amount * multiplier)
+    currency = 'USD'
 
 
 class Franc(Money):
-    def times(self, multiplier):
-        return Money.franc(self.amount * multiplier)
+    currency = 'CHF'
 
