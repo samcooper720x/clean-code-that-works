@@ -1,28 +1,24 @@
 import pytest
 
-from money import Dollar, Franc
+from money import Money, Dollar, Franc
 
 
 class TestMultiCurrencyMoney:
     def test_dollar_multiplication(self):
-        # In the book, Kent Beck compares the two class instances
-        # for equality. In Python we can only do those by defining
-        # an __eq__ method, so to keep as close to the example as
-        # possible I've chosen to compare the specific attributes.
-        five = Dollar(5)
-        assert Dollar(10).amount == five.times(2).amount
-        assert Dollar(15).amount == five.times(3).amount
+        five = Money.dollar(5)
+        assert Money.dollar(10).amount == five.times(2).amount
+        assert Money.dollar(15).amount == five.times(3).amount
 
     def test_franc_multiplication(self):
-        five = Franc(5)
-        assert Franc(10).amount == five.times(2).amount
-        assert Franc(15).amount == five.times(3).amount
+        five = Money.franc(5)
+        assert Money.franc(10).amount == five.times(2).amount
+        assert Money.franc(15).amount == five.times(3).amount
 
     def test_equality(self):
-        assert Dollar(5).equals(Dollar(5))
-        assert not Dollar(5).equals(Dollar(6))
-        assert Franc(5).equals(Franc(5))
-        assert not Franc(5).equals(Franc(6))
-        assert not Franc(5).equals(Dollar(5))
+        assert Money.dollar(5).equals(Money.dollar(5))
+        assert not Money.dollar(5).equals(Money.dollar(6))
+        assert Money.franc(5).equals(Money.franc(5))
+        assert not Money.franc(5).equals(Money.franc(6))
+        assert not Money.franc(5).equals(Money.dollar(5))
 
 
