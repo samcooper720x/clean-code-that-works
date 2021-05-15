@@ -1,6 +1,6 @@
 import pytest
 
-from money import Money, Bank
+from money import Money, Bank, Total
 
 
 class TestMultiCurrencyMoney:
@@ -19,11 +19,21 @@ class TestMultiCurrencyMoney:
         assert 'CHF' == Money.franc(1).currency
     
     def test_simple_addition(self):
-        total = Money.dollar(5).plus(Money.dollar(5))
-        assert Money.dollar(10) == total
-
         five = Money.dollar(5)
         total = five.plus(five)
         bank = Bank()
         reduced = bank.reduce(total, 'USD')
-        assert Money.dollar(10), reduced
+        assert Money.dollar(10) == reduced
+
+    def test_plus_returns_total(self):
+        five = Money.dollar(5)
+        total = five.plus(five)
+        assert five == total.augend
+        assert five == total.addend
+
+    def test_reduce_total(self):
+        total = Total(Money.dollar(3), Money.dollar(4))
+        bank = Bank()
+        result = bank.reduce(total, 'USD')
+        assert Money.dollar(7) == result
+    
